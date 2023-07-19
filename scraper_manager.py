@@ -88,21 +88,22 @@ class scraper_manager:
 
     def scrap_data_from_name_page(self,data):
         for text_data in data:
-            d = datetime.datetime.now()
+            # d = datetime.datetime.now()
             soup = BeautifulSoup(text_data[0], 'html.parser')
             h4_tags = soup.find_all('h3')
             for tag in h4_tags:
-                self.data.append([d, tag.text, text_data[1]])
+                self.data.append([tag.text, text_data[1]])
 
     def dump_data(self):
-        df=pd.DataFrame(self.data,columns=['Date','News','Type'])
-        df.to_csv(self.file_name,index=False)
-        print("----------------------------------------------Data-Store-------------------------------------------------------------")
+        df=pd.DataFrame(self.data,columns=['News','Type'])
+        # df.to_csv(self.file_name,index=False)
+        # print("----------------------------------------------Data-Store-------------------------------------------------------------")
+        return df
 
 
 
 
-    def search_by_name(self):
-        name=input("Write the name: ")
+    def search_by_name(self,name):
+        # name=input("Write the name: ")
         api = [["https://news.google.com/search?q={}&hl=en-IN&gl=IN&ceid=IN%3Aen".format(name),name]]
         return api
